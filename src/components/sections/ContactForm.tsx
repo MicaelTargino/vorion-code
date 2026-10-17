@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { AlertCircle, Check, Loader2 } from "lucide-react";
+import { AlertCircle, Check, Loader2, Mail } from "lucide-react";
 import { content } from "@/content";
 import { Button } from "@/components/ui/Button";
 import { LIMITS, SELECT_EVENT, validateContact, type ContactErrors } from "@/lib/contact";
@@ -9,7 +9,27 @@ import { siteConfig } from "@/lib/site-config";
 
 const f = content.form;
 
-type Status = "idle" | "submitting" | "success" | "dev" | "error";
+type Status = "idle" | "submitting" | "success" | "mailto" | "error";
+
+// Site estático (GitHub Pages): sem backend próprio. Com NEXT_PUBLIC_FORM_ENDPOINT
+// (Formspree, Web3Forms, etc.) o formulário envia para lá; sem ele, abre o app de
+// e-mail do visitante com a mensagem pronta para o endereço de contato.
+const FORM_ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
+
+function mailtoHref(d: Record<string, string>) {
+  const subject = `[Site] ${d.projectType} — ${d.name}`;
+  const body = [
+    `Nome: ${d.name}`,
+    `E-mail: ${d.email}`,
+    d.company ? `Empresa: ${d.company}` : null,
+    `Tipo de projeto: ${d.projectType}`,
+    "",
+    d.message,
+  ]
+    .filter((l) => l !== null)
+    .join("\n");
+  return `mailto:${siteConfig.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
 
 const fieldBase =
   "w-full rounded-xl border bg-white/[0.03] px-4 py-3.5 text-[0.98rem] text-star placeholder:text-star/30 outline-none transition-[border-color,background-color,box-shadow] duration-300 focus:bg-white/[0.05] focus:shadow-[0_0_0_4px_rgba(124,58,237,0.18)]";
@@ -47,16 +67,27 @@ export function ContactForm() {
       return;
     }
 
+    // honeypot preenchido: finge sucesso para não ensinar o bot
+    if (data._gotcha) {
+      setStatus("success");
+      return;
+    }
+
+    if (!FORM_ENDPOINT) {
+      window.location.href = mailtoHref(data);
+      setStatus("mailto");
+      return;
+    }
+
     setStatus("submitting");
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(FORM_ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ ...data, _subject: `[Site] ${data.projectType} — ${data.name}` }),
       });
-      const json = (await res.json().catch(() => ({}))) as { ok?: boolean; delivered?: boolean };
-      if (res.ok && json.ok) {
-        setStatus(json.delivered === false ? "dev" : "success");
+      if (res.ok) {
+        setStatus("success");
         formRef.current?.reset();
         setProjectType("");
       } else {
@@ -69,21 +100,31 @@ export function ContactForm() {
     }
   }
 
-  if (status === "success" || status === "dev") {
-    const dev = status === "dev";
+  if (status === "success" || status === "mailto") {
+    const dev = status === "mailto";
     return (
       <div role="status" className="flex flex-col items-start gap-4 py-6">
         <span
           className={`flex h-11 w-11 items-center justify-center rounded-full ${
-            dev ? "bg-amber-300/15 text-amber-200" : "bg-emerald-400/15 text-emerald-300"
+            dev ? "bg-violet-400/15 text-violet-200" : "bg-emerald-400/15 text-emerald-300"
           }`}
         >
-          {dev ? <AlertCircle size={20} aria-hidden /> : <Check size={20} aria-hidden />}
+          {dev ? <Mail size={20} aria-hidden /> : <Check size={20} aria-hidden />}
         </span>
-        <h3 className="font-display text-[1.6rem] font-medium text-star">
-          {dev ? f.devFallback.title : f.success.title}
-        </h3>
-        <p className="max-w-[48ch] leading-relaxed text-cosmic">{dev ? f.devFallback.copy : f.success.copy}</p>
+        <h3 className="font-display text-[1.6rem] font-medium text-star">{dev ? f.mailto.title : f.success.title}</h3>
+        <p className="max-w-[48ch] leading-relaxed text-cosmic">
+          {dev ? (
+            <>
+              {f.mailto.copy}{" "}
+              <a href={`mailto:${siteConfig.email}`} className="text-star underline underline-offset-4">
+                {siteConfig.email}
+              </a>
+              .
+            </>
+          ) : (
+            f.success.copy
+          )}
+        </p>
         <Button variant="secondary" onClick={() => setStatus("idle")} className="mt-2">
           {f.success.again}
         </Button>
@@ -195,7 +236,7 @@ export function ContactForm() {
       {/* honeypot anti-spam: escondido de pessoas e de leitores de tela */}
       <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">
         <label htmlFor={id("website")}>Website</label>
-        <input id={id("website")} name="website" tabIndex={-1} autoComplete="off" />
+        <input id={id("website")} name="_gotcha" tabIndex={-1} autoComplete="off" />
       </div>
 
       {serverError && (

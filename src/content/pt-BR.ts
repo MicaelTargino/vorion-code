@@ -310,9 +310,9 @@ export const ptBR = {
       copy: "Recebemos sua mensagem e respondemos em até 2 dias úteis.",
       again: "Enviar outra mensagem",
     },
-    devFallback: {
-      title: "Modo de desenvolvimento: a mensagem não foi entregue.",
-      copy: "O envio de e-mail ainda não está configurado. Defina RESEND_API_KEY e CONTACT_TO_EMAIL no servidor (veja o README).",
+    mailto: {
+      title: "Sua mensagem está pronta no seu app de e-mail.",
+      copy: "É só conferir e enviar. Se nada abriu, escreva direto para",
     },
   },
   footer: {

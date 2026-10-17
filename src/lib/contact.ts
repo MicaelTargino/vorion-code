@@ -1,4 +1,4 @@
-/** Validação compartilhada entre o formulário (cliente) e a rota /api/contact (servidor). */
+/** Validação do formulário de contato (o site é estático; o envio é feito no cliente). */
 
 export type ContactPayload = {
   name: string;
@@ -7,7 +7,7 @@ export type ContactPayload = {
   projectType: string;
   message: string;
   /** honeypot: humanos não preenchem */
-  website?: string;
+  _gotcha?: string;
 };
 
 export type ContactErrors = Partial<Record<"name" | "email" | "projectType" | "message", true>>;

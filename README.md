@@ -19,9 +19,10 @@ Tudo abaixo está marcado no código com `PLACEHOLDER` ou `placeholder: true`:
 
 | Onde | O quê |
 |---|---|
-| `src/content/pt-BR.ts` → `work.projects` | Os 3 projetos são **demonstrativos** e aparecem com o selo "Projeto demonstrativo". Troque por cases reais (com autorização do cliente) e mude `placeholder` para `false`. Sem isso, o botão "Ver projeto" não aparece. |
+| `src/content/pt-BR.ts` → `work.projects` | Cases reais do Micael (telas recriadas com dados fictícios). Adicione cases dos outros sócios no mesmo formato. |
+| `src/content/pt-BR.ts` → `team.founders` | Falta a foto (`public/team/pedro.jpg`) e a área de atuação do Pedro. |
 | `src/content/pt-BR.ts` → `technologies.categories` | Stack de exemplo. Os sócios precisam confirmar. |
-| `src/lib/site-config.ts` | E-mail de contato e links de redes sociais. Item com `href` vazio some do rodapé. |
+| `src/lib/site-config.ts` | E-mail de contato e links de redes sociais (vazios até os perfis existirem; item com `href` vazio some do rodapé). |
 | `src/components/brand/Logo.tsx` | Logo reconstruído em SVG (V + anel orbital + estrela). Se houver o vetor oficial, substitua os paths. O mesmo desenho está em `src/app/icon.svg`. |
 | `src/content/pt-BR.ts` → `hero.coordinates` | Coordenadas decorativas (João Pessoa). Mude se a sede for outra. |
 | `form.subtitle` | "Respondemos em até 2 dias úteis." Ajuste para o prazo real. |
@@ -30,22 +31,20 @@ Nenhum cliente, depoimento ou número foi inventado.
 
 ## Formulário de contato
 
-`POST /api/contact` valida os dados, filtra bots (honeypot + limite de 5 envios por IP a cada 10 min) e envia o e-mail pelo [Resend](https://resend.com).
+O site é estático (GitHub Pages), então não há backend próprio. O formulário valida os campos no navegador e:
 
-1. Crie uma conta no Resend e verifique o domínio `vorioncode.com`.
-2. Defina `RESEND_API_KEY`, `CONTACT_TO_EMAIL` e `CONTACT_FROM_EMAIL` no servidor (na Vercel: Settings → Environment Variables).
+- **com `NEXT_PUBLIC_FORM_ENDPOINT` definido** (ex.: um formulário do [Formspree](https://formspree.io) ou do [Web3Forms](https://web3forms.com)), envia a mensagem para esse serviço, que repassa por e-mail;
+- **sem ele**, abre o app de e-mail do visitante com assunto e corpo prontos para `NEXT_PUBLIC_CONTACT_EMAIL`, e avisa que é só conferir e enviar.
 
-Sem essas variáveis, o site **não finge** que enviou nada:
-- em desenvolvimento, o formulário mostra "Modo de desenvolvimento: a mensagem não foi entregue";
-- em produção, a API responde 503 e o formulário mostra o erro com o e-mail de contato como alternativa.
+Em produção essas variáveis vêm de **Settings → Secrets and variables → Actions → Variables** do repositório (`CONTACT_EMAIL` e `FORM_ENDPOINT`). O endpoint de formulário é público por natureza; não coloque chaves secretas aqui.
 
-O limite por IP fica em memória. Em serverless ele vale por instância, o que basta para um site institucional. Se aparecer spam de verdade, troque por Upstash/Redis ou ative o Turnstile.
+O campo escondido `_gotcha` é o honeypot anti-spam reconhecido pelo Formspree.
 
 ## Estrutura
 
 ```
 src/
-  app/                 layout, página, SEO (sitemap, robots, OG image, ícone), /api/contact
+  app/                 layout, página, SEO (sitemap, robots, ícone)
   content/pt-BR.ts     todo o texto do site (pronto para um en.ts com o mesmo formato)
   lib/                 config do site, GSAP, scroll (Lenis), estado da cena, validação do contato
   components/
@@ -71,15 +70,15 @@ src/
 - **"Nossa essência" usa Canvas 2D**, não WebGL, para não abrir um segundo contexto de GPU. Também pausa fora da tela.
 - Os cards de serviço levam ao formulário com o **tipo de projeto já selecionado**.
 
-## Deploy
+## Deploy (GitHub Pages)
 
-O caminho mais simples é a **Vercel**:
+`next build` gera o site estático em `out/` (`output: "export"` no `next.config.ts`). O workflow `.github/workflows/deploy.yml` faz o build e publica no GitHub Pages a cada push na `main`.
 
-1. Suba o repositório no GitHub e importe na Vercel (framework detectado automaticamente).
-2. Configure as variáveis do `.env.example`.
-3. Em Domains, adicione `vorioncode.com` e `www.vorioncode.com` e aponte o DNS conforme as instruções.
-
-Funciona também em qualquer Node 20+ (`npm run build && npm start`) atrás de um proxy (Nginx/Caddy).
+- Domínio: `public/CNAME` (`vorioncode.com`). O DNS fica na Hostinger:
+  - `A` em `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+  - `CNAME` em `www` → `micaeltargino.github.io`
+- Depois que o DNS propagar, marque **Enforce HTTPS** em Settings → Pages.
+- Imagem de compartilhamento: `public/og.png` (1200×630).
 
 ## Não medido ainda
 

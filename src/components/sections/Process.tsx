@@ -78,13 +78,13 @@ export function Process() {
               <svg viewBox="0 0 700 560" className="w-full" aria-hidden>
                 <defs>
                   <linearGradient id="orbit-grad" x1="0" y1="1" x2="1" y2="0">
-                    <stop offset="0" stopColor="#7C3AED" />
-                    <stop offset="1" stopColor="#3B82F6" />
+                    <stop offset="0" stopColor="#926CD8" />
+                    <stop offset="1" stopColor="#B497E8" />
                   </linearGradient>
                   <radialGradient id="orbit-dot">
-                    <stop offset="0" stopColor="#F8FAFC" />
+                    <stop offset="0" stopColor="#FFFCF3" />
                     <stop offset="0.35" stopColor="#a78bfa" stopOpacity="0.9" />
-                    <stop offset="1" stopColor="#7C3AED" stopOpacity="0" />
+                    <stop offset="1" stopColor="#926CD8" stopOpacity="0" />
                   </radialGradient>
                 </defs>
                 {/* anéis de contexto */}
@@ -107,7 +107,7 @@ export function Process() {
                   stroke="rgba(255,255,255,0.04)"
                   strokeDasharray="2 6"
                 />
-                <circle cx="300" cy="290" r="3" fill="rgba(248,250,252,0.5)" />
+                <circle cx="300" cy="290" r="3" fill="rgba(255,252,243,0.5)" />
 
                 <path ref={path} d={ORBIT} fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="1.2" />
                 <path
@@ -137,7 +137,7 @@ export function Process() {
                         className="font-mono"
                         fontSize="13"
                         letterSpacing="1.5"
-                        fill={on ? "rgba(248,250,252,0.9)" : "rgba(156,163,175,0.6)"}
+                        fill={on ? "rgba(255,252,243,0.9)" : "rgba(156,163,175,0.6)"}
                         style={{ transition: "fill 400ms" }}
                       >
                         {proc.steps[i].n} {proc.steps[i].title.toUpperCase()}
@@ -148,7 +148,7 @@ export function Process() {
 
                 <g ref={dot}>
                   <circle r="26" fill="url(#orbit-dot)" opacity="0.65" />
-                  <circle r="4.5" fill="#F8FAFC" />
+                  <circle r="4.5" fill="#FFFCF3" />
                 </g>
               </svg>
             </div>

@@ -65,7 +65,7 @@ export function Expertise() {
                     className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover/grid:opacity-100"
                     style={{
                       background:
-                        "radial-gradient(420px circle at var(--mx, -500px) var(--my, -500px), rgba(124,58,237,0.13), rgba(59,130,246,0.06) 40%, transparent 70%)",
+                        "radial-gradient(420px circle at var(--mx, -500px) var(--my, -500px), rgba(146,108,216,0.13), rgba(180,151,232,0.06) 40%, transparent 70%)",
                     }}
                   />
                   <div className="relative flex items-start justify-between">

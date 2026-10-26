@@ -53,7 +53,7 @@ export function SceneFallback() {
       <div
         className="absolute left-[60%] top-[38%] aspect-square w-[min(150vh,150vw)] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
-          background: "radial-gradient(circle, rgba(124,58,237,0.32) 0%, rgba(91,60,220,0.14) 28%, rgba(5,5,12,0) 60%)",
+          background: "radial-gradient(circle, rgba(146,108,216,0.32) 0%, rgba(91,60,220,0.14) 28%, rgba(5,5,12,0) 60%)",
         }}
       />
       {/* planeta */}
@@ -62,7 +62,7 @@ export function SceneFallback() {
         style={{
           background: "radial-gradient(circle at 38% 28%, #9b6cf0 0%, #5b2bb8 22%, #2a1260 52%, #0d0626 78%)",
           boxShadow:
-            "0 0 60px 6px rgba(167,139,250,0.45), 0 0 160px 40px rgba(124,58,237,0.22), inset 0 6px 22px rgba(236,225,255,0.55), inset -30px -40px 80px rgba(5,5,12,0.75)",
+            "0 0 60px 6px rgba(167,139,250,0.45), 0 0 160px 40px rgba(146,108,216,0.22), inset 0 6px 22px rgba(236,225,255,0.55), inset -30px -40px 80px rgba(5,5,12,0.75)",
         }}
       />
       {/* névoa do horizonte */}

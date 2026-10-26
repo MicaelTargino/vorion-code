@@ -26,7 +26,7 @@ export function Team() {
                     <span
                       aria-hidden
                       className="flex h-full w-full items-center justify-center font-display text-[1.4rem] font-medium tracking-[0.04em] text-star/80"
-                      style={{ background: "linear-gradient(135deg, rgba(124,58,237,.35), rgba(59,130,246,.25))" }}
+                      style={{ background: "linear-gradient(135deg, rgba(146,108,216,.35), rgba(180,151,232,.25))" }}
                     >
                       {f.initials}
                     </span>

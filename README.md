@@ -19,11 +19,10 @@ Tudo abaixo está marcado no código com `PLACEHOLDER` ou `placeholder: true`:
 
 | Onde | O quê |
 |---|---|
-| `src/content/pt-BR.ts` → `work.projects` | Cases reais do Micael (telas recriadas com dados fictícios). Adicione cases dos outros sócios no mesmo formato. |
+| `src/content/pt-BR.ts` → `work.projects` | IngressosZ, de Lucas Vilhena (captura real da demo pública), e cases do Micael (telas recriadas com dados fictícios). |
 | `src/content/pt-BR.ts` → `team.founders` | Falta a foto (`public/team/pedro.jpg`) e a área de atuação do Pedro. |
 | `src/content/pt-BR.ts` → `technologies.categories` | Stack de exemplo. Os sócios precisam confirmar. |
 | `src/lib/site-config.ts` | E-mail de contato e links de redes sociais (vazios até os perfis existirem; item com `href` vazio some do rodapé). |
-| `src/components/brand/Logo.tsx` | Logo reconstruído em SVG (V + anel orbital + estrela). Se houver o vetor oficial, substitua os paths. O mesmo desenho está em `src/app/icon.svg`. |
 | `src/content/pt-BR.ts` → `hero.coordinates` | Coordenadas decorativas (João Pessoa). Mude se a sede for outra. |
 | `form.subtitle` | "Respondemos em até 2 dias úteis." Ajuste para o prazo real. |
 
@@ -83,3 +82,17 @@ src/
 ## Não medido ainda
 
 As metas de Lighthouse (90+ de performance, 95+ de acessibilidade e SEO) não foram medidas. O ambiente de desenvolvimento usa renderização WebGL por software, o que distorce o resultado. Rode o Lighthouse do Chrome numa máquina real, em modo mobile, depois do deploy.
+
+
+## Identidade visual
+
+A marca oficial fornecida na pasta `../VorionCode` está integrada ao cabeçalho,
+rodapé, favicon e imagem de compartilhamento. Os PNGs em `public/brand` são
+cópias reduzidas com transparência; os originais foram preservados.
+
+- Roxo oficial: `#926CD8`; branco oficial: `#FFFCF3`.
+- Poppins local, pesos 400, 500, 600 e 700, com licença em `src/app/fonts/OFL.txt`.
+- Cores e famílias tipográficas: `src/app/globals.css`.
+- Componente da marca: `src/components/brand/Logo.tsx`.
+- `prepare-brand.py` prepara novamente os arquivos web a partir dos originais
+  (requer Python com Pillow).

@@ -13,16 +13,16 @@ export function ProjectPreview({ kind }: { kind: Project["preview"] }) {
           <stop offset="1" stopColor="#0b0d1f" />
         </linearGradient>
         <linearGradient id={`pv-brand-${kind}`} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#7C3AED" />
-          <stop offset="1" stopColor="#3B82F6" />
+          <stop offset="0" stopColor="#926CD8" />
+          <stop offset="1" stopColor="#B497E8" />
         </linearGradient>
         <linearGradient id={`pv-area-${kind}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#7C3AED" stopOpacity="0.35" />
-          <stop offset="1" stopColor="#3B82F6" stopOpacity="0" />
+          <stop offset="0" stopColor="#926CD8" stopOpacity="0.35" />
+          <stop offset="1" stopColor="#B497E8" stopOpacity="0" />
         </linearGradient>
         <radialGradient id={`pv-glow-${kind}`} cx="0.75" cy="0.15" r="0.8">
-          <stop offset="0" stopColor="#7C3AED" stopOpacity="0.35" />
-          <stop offset="1" stopColor="#7C3AED" stopOpacity="0" />
+          <stop offset="0" stopColor="#926CD8" stopOpacity="0.35" />
+          <stop offset="1" stopColor="#926CD8" stopOpacity="0" />
         </radialGradient>
       </defs>
       <rect width="800" height="500" fill={`url(#pv-bg-${kind})`} />
@@ -36,7 +36,7 @@ export function ProjectPreview({ kind }: { kind: Project["preview"] }) {
 
 const line = "rgba(255,255,255,0.08)";
 const soft = "rgba(255,255,255,0.14)";
-const text = "rgba(248,250,252,0.55)";
+const text = "rgba(255,252,243,0.55)";
 
 function Dashboard() {
   return (
@@ -59,7 +59,7 @@ function Dashboard() {
         <g key={i}>
           <rect x={244 + i * 158} y="88" width="142" height="78" rx="10" fill="#121330" stroke={line} />
           <rect x={260 + i * 158} y="106" width="54" height="7" rx="3.5" fill={text} opacity="0.4" />
-          <rect x={260 + i * 158} y="128" width={70 + i * 10} height="16" rx="5" fill="#F8FAFC" opacity="0.85" />
+          <rect x={260 + i * 158} y="128" width={70 + i * 10} height="16" rx="5" fill="#FFFCF3" opacity="0.85" />
         </g>
       ))}
       <rect x="244" y="184" width="458" height="248" rx="10" fill="#121330" stroke={line} />
@@ -76,8 +76,8 @@ function Dashboard() {
         stroke="url(#pv-brand-dashboard)"
         strokeWidth="3"
       />
-      <circle cx="620" cy="246" r="6" fill="#F8FAFC" />
-      <circle cx="620" cy="246" r="14" fill="#7C3AED" opacity="0.25" />
+      <circle cx="620" cy="246" r="6" fill="#FFFCF3" />
+      <circle cx="620" cy="246" r="14" fill="#926CD8" opacity="0.25" />
     </g>
   );
 }
@@ -114,7 +114,7 @@ function Agent() {
       <circle cx="420" cy="250" r="78" fill="none" stroke={soft} strokeDasharray="2 8" />
       <path
         d="M420 222c2.4 15.4 7.6 20.6 23 23-15.4 2.4-20.6 7.6-23 23-2.4-15.4-7.6-20.6-23-23 15.4-2.4 20.6-7.6 23-23Z"
-        fill="#F8FAFC"
+        fill="#FFFCF3"
       />
       <path
         d="M476 250 C 500 250, 512 250, 536 250"
@@ -133,7 +133,7 @@ function Agent() {
             width="76"
             height="8"
             rx="4"
-            fill={j === 3 ? "#F59E0B" : "#F8FAFC"}
+            fill={j === 3 ? "#F59E0B" : "#FFFCF3"}
             opacity={j === 3 ? 0.8 : 0.75}
           />
         </g>
@@ -182,7 +182,7 @@ function Mobile() {
               <rect x="58" y={70 + i * 50} width="52" height="6" rx="3" fill={text} opacity="0.25" />
             </g>
           ))}
-          <rect x="18" y="296" width="134" height="30" rx="15" fill="#F8FAFC" opacity="0.9" />
+          <rect x="18" y="296" width="134" height="30" rx="15" fill="#FFFCF3" opacity="0.9" />
         </g>,
       )}
     </g>

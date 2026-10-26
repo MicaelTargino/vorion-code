@@ -122,8 +122,8 @@ export function NodeField({ label }: { label: string }) {
           if (d > maxD) continue;
           const alpha = (1 - d / maxD) * 0.32;
           const g = ctx.createLinearGradient(pos[i].x, pos[i].y, pos[j].x, pos[j].y);
-          g.addColorStop(0, `rgba(124,58,237,${alpha})`);
-          g.addColorStop(1, `rgba(59,130,246,${alpha})`);
+          g.addColorStop(0, `rgba(146,108,216,${alpha})`);
+          g.addColorStop(1, `rgba(180,151,232,${alpha})`);
           ctx.strokeStyle = g;
           ctx.lineWidth = 1;
           ctx.beginPath();
@@ -158,15 +158,15 @@ export function NodeField({ label }: { label: string }) {
         const y = A.y + (B.y - A.y) * p.t;
         ctx.beginPath();
         ctx.arc(x, y, 1.6, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(248,250,252,0.9)";
+        ctx.fillStyle = "rgba(255,252,243,0.9)";
         ctx.fill();
       });
 
       // núcleo
       const core = ctx.createRadialGradient(cx, cy, 0, cx, cy, s * 0.09);
-      core.addColorStop(0, "rgba(248,250,252,0.95)");
+      core.addColorStop(0, "rgba(255,252,243,0.95)");
       core.addColorStop(0.2, "rgba(167,139,250,0.6)");
-      core.addColorStop(1, "rgba(124,58,237,0)");
+      core.addColorStop(1, "rgba(146,108,216,0)");
       ctx.fillStyle = core;
       ctx.beginPath();
       ctx.arc(cx + pointer.x * 4, cy + pointer.y * 3, s * 0.09, 0, Math.PI * 2);

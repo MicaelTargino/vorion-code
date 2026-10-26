@@ -19,12 +19,12 @@ export function Footer() {
         <path d="M-20 110 C 380 10, 1060 10, 1460 110" fill="none" stroke="url(#ft-g)" strokeWidth="1" />
         <defs>
           <linearGradient id="ft-g" x1="0" x2="1">
-            <stop offset="0" stopColor="#7C3AED" stopOpacity="0" />
+            <stop offset="0" stopColor="#926CD8" stopOpacity="0" />
             <stop offset="0.5" stopColor="#8b7cf6" stopOpacity="0.55" />
-            <stop offset="1" stopColor="#3B82F6" stopOpacity="0" />
+            <stop offset="1" stopColor="#B497E8" stopOpacity="0" />
           </linearGradient>
         </defs>
-        <circle cx="1012" cy="40.5" r="2" fill="#F8FAFC" />
+        <circle cx="1012" cy="40.5" r="2" fill="#FFFCF3" />
       </svg>
 
       <div className="relative mx-auto max-w-[1440px] px-5 pb-10 pt-24 sm:px-8 lg:px-12">

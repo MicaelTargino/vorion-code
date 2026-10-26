@@ -82,7 +82,7 @@ export function Work() {
                   </div>
                   {p.image && (
                     <span className="absolute bottom-4 right-4 rounded-full border border-white/10 bg-black/55 px-3 py-1 font-mono text-[0.66rem] tracking-[0.1em] text-star/70 backdrop-blur">
-                      {work.fictitious.toUpperCase()}
+                      {(p.imageLabel ?? work.fictitious).toUpperCase()}
                     </span>
                   )}
                   {p.placeholder && (
@@ -120,6 +120,7 @@ export function Work() {
                       </li>
                     ))}
                   </ul>
+                  {p.note && <p className="mt-5 max-w-[46ch] text-[0.82rem] leading-relaxed text-cosmic">{p.note}</p>}
                   {p.placeholder ? (
                     <p className="mt-8 text-[0.85rem] text-amber-200/70">{work.placeholderNote}</p>
                   ) : (
@@ -129,7 +130,7 @@ export function Work() {
                       rel={p.href ? "noopener noreferrer" : undefined}
                       className="mt-8 inline-flex items-center gap-1.5 text-[0.95rem] text-star underline decoration-white/20 underline-offset-[6px] transition-colors hover:decoration-white/70"
                     >
-                      {work.cta}
+                      {p.linkLabel ?? work.cta}
                     </a>
                   )}
                 </div>

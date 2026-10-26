@@ -5,28 +5,28 @@
   --color-deep: #05050c;
   --color-surface: #11111d;
   --color-elevated: #171725;
-  --color-nebula: #7c3aed;
-  --color-orion: #3b82f6;
-  --color-star: #f8fafc;
+  --color-nebula: #926cd8;
+  --color-orion: #b497e8;
+  --color-star: #fffcf3;
   --color-cosmic: #9ca3af;
   --color-line: rgba(255, 255, 255, 0.08);
   --color-line-strong: rgba(255, 255, 255, 0.16);
 
-  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-poppins), ui-monospace, "SFMono-Regular", monospace;
 
   --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-soft: cubic-bezier(0.65, 0, 0.35, 1);
 
   --text-display: clamp(2.75rem, 1.2rem + 6.4vw, 7rem);
-  --text-display--line-height: 0.98;
+  --text-display--line-height: 1.08;
   --text-title: clamp(2.1rem, 1.3rem + 3.2vw, 4.25rem);
-  --text-title--line-height: 1.04;
+  --text-title--line-height: 1.12;
 }
 
 :root {
-  --brand-gradient: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+  --brand-gradient: linear-gradient(135deg, #b497e8 0%, #926cd8 55%, #693991 100%);
   --nav-h: 72px;
   color-scheme: dark;
 }
@@ -47,7 +47,7 @@ body {
 }
 
 ::selection {
-  background: rgba(124, 58, 237, 0.45);
+  background: rgba(146, 108, 216, 0.45);
   color: #fff;
 }
 
@@ -139,7 +139,7 @@ html.js-anim [data-hero="meta"] {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.9), rgba(59, 130, 246, 0.9));
+  background: linear-gradient(135deg, rgba(146, 108, 216, 0.9), rgba(180, 151, 232, 0.9));
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);

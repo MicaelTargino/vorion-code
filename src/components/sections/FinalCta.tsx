@@ -45,7 +45,7 @@ export function FinalCta() {
       <div className="relative mx-auto max-w-[1440px] px-5 pb-28 sm:px-8 lg:px-12">
         <div
           id="formulario"
-          className="mx-auto max-w-3xl scroll-mt-28 rounded-[28px] border border-line-strong bg-[rgba(11,11,20,0.78)] p-6 shadow-[0_40px_120px_-40px_rgba(124,58,237,0.45)] backdrop-blur-xl sm:p-10"
+          className="mx-auto max-w-3xl scroll-mt-28 rounded-[28px] border border-line-strong bg-[rgba(11,11,20,0.78)] p-6 shadow-[0_40px_120px_-40px_rgba(146,108,216,0.45)] backdrop-blur-xl sm:p-10"
         >
           <h3 className="font-display text-[1.75rem] font-medium tracking-[-0.015em] text-star">{form.title}</h3>
           <div className="mt-8">

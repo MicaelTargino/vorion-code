@@ -21,6 +21,11 @@ export type Project = {
   preview?: "dashboard" | "agent" | "mobile";
   /** screenshot real (em /public) */
   image?: string;
+  /** legenda específica da captura */
+  imageLabel?: string;
+  /** texto e contexto do link público */
+  linkLabel?: string;
+  note?: string;
   /** quem do time liderou e onde */
   by?: string;
   /** link para o case completo */
@@ -116,7 +121,7 @@ export const ptBR = {
     eyebrow: "02 / PROJETOS",
     headline: "Construído para fazer a diferença.",
     intro:
-      "A Vorion é nova, mas o time não. Estes são sistemas que os sócios lideraram antes do estúdio, em produção. As telas foram recriadas com dados fictícios.",
+      "Projetos desenvolvidos pelos sócios: de plataformas autorais a sistemas usados por empresas. Conheça os desafios, as soluções e as tecnologias por trás de cada entrega.",
     placeholderBadge: "Projeto demonstrativo",
     placeholderNote: "Exemplo ilustrativo de layout. Substituir por um case real antes de publicar.",
     problemLabel: "Desafio",
@@ -126,18 +131,20 @@ export const ptBR = {
     fictitious: "Dados fictícios",
     projects: [
       {
-        slug: "01-adserver",
-        name: "Ad server próprio",
-        kind: "Ad tech · SaaS",
+        slug: "01-ingressosz",
+        name: "IngressosZ",
+        kind: "Eventos · Plataforma full stack",
         problem:
-          "Uma empresa de mídia dependia de um ad server de terceiros para entregar e medir campanhas de display e vídeo.",
+          "Reunir a descoberta de eventos, a compra de ingressos e o controle de entrada em uma experiência digital integrada.",
         solution:
-          "Ad server multi-tenant feito do zero: tags JavaScript, SDKs Android e iOS, vídeo VAST, filtro de tráfego inválido e relatórios sobre BigQuery. A decisão de anúncio leva ~5 ms no servidor.",
-        stack: ["Laravel", "FastAPI", "BigQuery", "Kotlin", "Swift"],
+          "Plataforma com catálogo e filtros de eventos, integração com Mercado Pago e Pix, emissão de ingressos com QR Code assinado e painel administrativo para eventos, vendas e reembolsos.",
+        stack: ["React", "TypeScript", "Firebase", "Node.js", "Mercado Pago"],
         placeholder: false,
-        image: "/work/01-adserver.jpg",
-        by: "Micael Targino · Metrike",
-        href: "https://micaeltargino.com/#01-adserver",
+        image: "/work/01-ingressosz.jpg",
+        imageLabel: "Captura real · Ambiente demonstrativo",
+        by: "Lucas Vilhena",
+        href: "https://ingressosz-40389793-4880f.web.app",
+        linkLabel: "Explorar demonstração ↗",
       },
       {
         slug: "02-faturadoc",
@@ -217,7 +224,7 @@ export const ptBR = {
         name: "Lucas Vilhena",
         role: "Sócio-fundador",
         focus: "Full-stack",
-        photo: "/team/lucas.jpg",
+        photo: "/team/lucas-portrait.jpg",
         initials: "LV",
         links: [
           { label: "LinkedIn", href: "https://www.linkedin.com/in/lucas-vilhena-9176a128b/" },

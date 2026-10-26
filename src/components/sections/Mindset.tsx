@@ -15,7 +15,7 @@ export function Mindset() {
       <div
         aria-hidden
         className="pointer-events-none absolute -right-[20%] top-1/2 h-[90%] w-[70%] -translate-y-1/2 rounded-full opacity-60"
-        style={{ background: "radial-gradient(closest-side, rgba(59,130,246,0.12), transparent)" }}
+        style={{ background: "radial-gradient(closest-side, rgba(180,151,232,0.12), transparent)" }}
       />
       <div className="relative mx-auto grid max-w-[1440px] items-center gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12">
         <div className="lg:col-span-6">

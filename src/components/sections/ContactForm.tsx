@@ -32,7 +32,7 @@ function mailtoHref(d: Record<string, string>) {
 }
 
 const fieldBase =
-  "w-full rounded-xl border bg-white/[0.03] px-4 py-3.5 text-[0.98rem] text-star placeholder:text-star/30 outline-none transition-[border-color,background-color,box-shadow] duration-300 focus:bg-white/[0.05] focus:shadow-[0_0_0_4px_rgba(124,58,237,0.18)]";
+  "w-full rounded-xl border bg-white/[0.03] px-4 py-3.5 text-[0.98rem] text-star placeholder:text-star/30 outline-none transition-[border-color,background-color,box-shadow] duration-300 focus:bg-white/[0.05] focus:shadow-[0_0_0_4px_rgba(146,108,216,0.18)]";
 
 export function ContactForm() {
   const uid = useId();

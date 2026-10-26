@@ -15,6 +15,16 @@ export function Nav() {
   const [active, setActive] = useState("inicio");
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 80rem)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) setOpen(false);
+    };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -42,17 +52,39 @@ export function Nav() {
   // menu móvel: Esc fecha, scroll da página travado enquanto aberto
   useEffect(() => {
     if (!open) return;
+    const menuLinks = () => Array.from(menuRef.current?.querySelectorAll<HTMLAnchorElement>("a[href]") ?? []);
+    const focusMenu = () => menuLinks()[0]?.focus({ preventScroll: true });
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        e.preventDefault();
         setOpen(false);
         toggleRef.current?.focus();
       }
+      if (e.key === "Tab") {
+        const controls = [toggleRef.current, ...menuLinks()].filter((el): el is HTMLButtonElement | HTMLAnchorElement => !!el);
+        const index = controls.findIndex((el) => el === document.activeElement);
+        if (index === -1 || (e.shiftKey && index === 0) || (!e.shiftKey && index === controls.length - 1)) {
+          e.preventDefault();
+          controls[e.shiftKey ? controls.length - 1 : 0]?.focus();
+        }
+      }
     };
+    const onFocus = (e: FocusEvent) => {
+      if (e.target !== toggleRef.current && !menuRef.current?.contains(e.target as Node)) focusMenu();
+    };
+    const background = Array.from(document.querySelectorAll<HTMLElement>("main, footer"));
+    const previousInert = background.map((el) => el.inert);
+    background.forEach((el) => { el.inert = true; });
     document.addEventListener("keydown", onKey);
+    document.addEventListener("focusin", onFocus);
+    const previousOverflow = document.documentElement.style.overflow;
     document.documentElement.style.overflow = "hidden";
+    focusMenu();
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.documentElement.style.overflow = "";
+      document.removeEventListener("focusin", onFocus);
+      background.forEach((el, i) => { el.inert = previousInert[i]; });
+      document.documentElement.style.overflow = previousOverflow;
     };
   }, [open]);
 
@@ -78,12 +110,12 @@ export function Nav() {
         >
           {nav.skipToContent}
         </a>
-        <div className="mx-auto flex h-[var(--nav-h)] max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12">
-          <a href="#inicio" onClick={go("inicio")} aria-label="Vorion Code, voltar ao início" className="rounded-md">
+        <div className="mx-auto flex h-[var(--nav-h)] max-w-[1440px] items-center justify-between gap-6 px-5 sm:px-8 lg:px-12">
+          <a href="#inicio" onClick={go("inicio")} aria-label="Vorion Code, voltar ao início" className="shrink-0 rounded-md">
             <Logo />
           </a>
 
-          <nav aria-label="Principal" className="hidden md:block">
+          <nav aria-label="Principal" className="hidden shrink-0 xl:block">
             <ul className="flex items-center gap-1">
               {nav.items.map((item) => {
                 const isActive = active === item.id;
@@ -93,7 +125,7 @@ export function Nav() {
                       href={`#${item.id}`}
                       onClick={go(item.id)}
                       aria-current={isActive ? "true" : undefined}
-                      className={`relative rounded-full px-3.5 py-2 text-[0.9rem] transition-colors duration-300 ${
+                      className={`relative inline-flex items-center whitespace-nowrap rounded-full px-3.5 py-2 text-[0.9rem] transition-colors duration-300 ${
                         isActive ? "text-star" : "text-cosmic hover:text-star"
                       }`}
                     >
@@ -111,9 +143,9 @@ export function Nav() {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <span className="hidden sm:inline-flex">
-              <ButtonLink href="#contato" variant="secondary" className="!h-10 !px-5 text-[0.88rem]">
+              <ButtonLink href="#contato" onClick={go("contato")} variant="secondary" className="!h-10 !px-5 text-[0.88rem]">
                 {nav.cta}
               </ButtonLink>
             </span>
@@ -124,7 +156,7 @@ export function Nav() {
               aria-expanded={open}
               aria-controls="menu-movel"
               aria-label={open ? nav.closeMenu : nav.openMenu}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line-strong text-star md:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line-strong text-star xl:hidden"
             >
               {open ? <X size={18} /> : <Menu size={18} />}
             </button>
@@ -135,13 +167,15 @@ export function Nav() {
       <AnimatePresence>
         {open && (
           <motion.nav
+            ref={menuRef}
             id="menu-movel"
             aria-label="Menu"
+            data-lenis-prevent
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-x-0 bottom-0 top-[var(--nav-h)] z-40 bg-[rgba(5,5,12,0.96)] px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-8 backdrop-blur-xl md:hidden"
+            className="fixed inset-x-0 bottom-0 top-[var(--nav-h)] z-40 overflow-y-auto overscroll-contain bg-[rgba(5,5,12,0.96)] px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-8 backdrop-blur-xl xl:hidden"
           >
             <ul className="flex flex-col">
               {[...nav.items, { id: "contato", label: "Contato" }].map((item, i) => (

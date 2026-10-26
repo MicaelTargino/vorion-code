@@ -32,7 +32,7 @@ export function Hero() {
       ref={root}
       id="inicio"
       aria-labelledby="hero-title"
-      className="relative z-10 flex h-[100svh] min-h-[560px] flex-col justify-end"
+      className="relative z-10 flex min-h-[max(100svh,560px)] flex-col justify-end pt-[calc(var(--nav-h)+2rem)]"
     >
       {/* transição suave da paisagem para o fundo sólido da próxima seção (fica atrás do texto) */}
       <div

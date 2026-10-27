@@ -112,7 +112,7 @@ export function Nav() {
         </a>
         <div className="mx-auto flex h-[var(--nav-h)] max-w-[1440px] items-center justify-between gap-6 px-5 sm:px-8 lg:px-12">
           <a href="#inicio" onClick={go("inicio")} aria-label="Vorion Code, voltar ao início" className="shrink-0 rounded-md">
-            <Logo />
+            <Logo compactWordmark />
           </a>
 
           <nav aria-label="Principal" className="hidden shrink-0 xl:block">

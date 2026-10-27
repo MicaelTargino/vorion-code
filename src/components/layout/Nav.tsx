@@ -18,7 +18,7 @@ export function Nav() {
   const menuRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 80rem)");
+    const desktop = window.matchMedia("(min-width: 64rem)");
     const closeOnDesktop = () => {
       if (desktop.matches) setOpen(false);
     };
@@ -115,7 +115,7 @@ export function Nav() {
             <Logo compactWordmark />
           </a>
 
-          <nav aria-label="Principal" className="hidden shrink-0 xl:block">
+          <nav aria-label="Principal" className="hidden shrink-0 lg:block">
             <ul className="flex items-center gap-1">
               {nav.items.map((item) => {
                 const isActive = active === item.id;
@@ -156,7 +156,7 @@ export function Nav() {
               aria-expanded={open}
               aria-controls="menu-movel"
               aria-label={open ? nav.closeMenu : nav.openMenu}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line-strong text-star xl:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line-strong text-star lg:hidden"
             >
               {open ? <X size={18} /> : <Menu size={18} />}
             </button>
@@ -175,7 +175,7 @@ export function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-x-0 bottom-0 top-[var(--nav-h)] z-40 overflow-y-auto overscroll-contain bg-[rgba(5,5,12,0.96)] px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-8 backdrop-blur-xl xl:hidden"
+            className="fixed inset-x-0 bottom-0 top-[var(--nav-h)] z-40 overflow-y-auto overscroll-contain bg-[rgba(5,5,12,0.96)] px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-8 backdrop-blur-xl lg:hidden"
           >
             <ul className="flex flex-col">
               {[...nav.items, { id: "contato", label: "Contato" }].map((item, i) => (

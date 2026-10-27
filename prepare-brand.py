@@ -11,6 +11,7 @@ for original, name, width in [
     ("Logo flat/Roxa.png", "mark-purple.png", 512),
     ("Logo flat/Branca.png", "mark-white.png", 512),
     ("Tipografia/Variação V2/Branca.png", "wordmark-white.png", 560),
+    ("Tipografia/Tipografia V2.png", "wordmark-brand.png", 560),
     ("Logo.png", "mark-dimensional.png", 900),
 ]:
     with Image.open(source / original) as image:

@@ -25,7 +25,15 @@ export function Logo({ variant = "full", tone = "gradient", className, title = "
   return (
     <span role="img" aria-label={title} className={`inline-flex shrink-0 items-center gap-3 ${className ?? ""}`}>
       <LogoMark tone={tone} className={compactWordmark ? "h-9 w-[52px] shrink-0 sm:h-10 sm:w-[60px]" : "h-10 w-14 shrink-0 sm:h-11 sm:w-16"} />
-      <Image src="/brand/wordmark-white.png" width={140} height={78} alt="" aria-hidden className={compactWordmark ? "h-auto w-16 sm:w-[72px]" : "h-auto w-[88px] sm:w-[96px]"} priority />
+      <Image
+        src={tone === "mono" ? "/brand/wordmark-white.png" : "/brand/wordmark-brand.png"}
+        width={140}
+        height={78}
+        alt=""
+        aria-hidden
+        className={compactWordmark ? "h-auto w-16 shrink-0 sm:w-[72px]" : "h-auto w-[88px] shrink-0 sm:w-[96px]"}
+        priority
+      />
     </span>
   );
 }

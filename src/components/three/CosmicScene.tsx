@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { PerformanceMonitor } from "@react-three/drei";
 import type { Group } from "three";
 import type { Quality } from "@/lib/scene-store";
@@ -16,6 +16,26 @@ const QUALITY = {
   high: { dpr: [1, 1.75] as [number, number], octaves: 5, particles: 420, segments: 96, stars: 130 },
   low: { dpr: [1, 1.25] as [number, number], octaves: 3, particles: 140, segments: 64, stars: 110 },
 };
+
+/** Prepare shader programs without blocking the first render on their compilation. */
+function PrepareShaders({ onCompiled }: { onCompiled: () => void }) {
+  const gl = useThree((state) => state.gl);
+  const scene = useThree((state) => state.scene);
+  const camera = useThree((state) => state.camera);
+
+  useEffect(() => {
+    let cancelled = false;
+    gl.compileAsync(scene, camera).then(() => {
+      if (!cancelled) onCompiled();
+    }).catch((error: unknown) => {
+      // The CSS/SVG landscape stays visible if WebGL cannot initialize.
+      console.warn("Could not prepare the 3D scene", error);
+    });
+    return () => { cancelled = true; };
+  }, [gl, scene, camera, onCompiled]);
+
+  return null;
+}
 
 function FirstFrame({ onReady }: { onReady: () => void }) {
   const done = useRef(false);
@@ -55,6 +75,8 @@ export default function CosmicScene({
   onReady: () => void;
 }) {
   const q = QUALITY[quality];
+  const [compiled, setCompiled] = useState(false);
+  const onCompiled = useCallback(() => setCompiled(true), []);
   const [dpr, setDpr] = useState<number>(
     Math.min(q.dpr[1], typeof window !== "undefined" ? window.devicePixelRatio : 1),
   );
@@ -67,7 +89,7 @@ export default function CosmicScene({
     <Canvas
       aria-hidden
       tabIndex={-1}
-      frameloop={active ? "always" : "never"}
+      frameloop={compiled && active ? "always" : "never"}
       dpr={dpr}
       flat
       gl={{ antialias: quality === "high", alpha: false, powerPreference: "high-performance", stencil: false }}
@@ -78,6 +100,7 @@ export default function CosmicScene({
       <color attach="background" args={["#05050c"]} />
       <PerformanceMonitor onDecline={() => setDpr(1)} />
       <World quality={quality} onReady={onReady} />
+      <PrepareShaders onCompiled={onCompiled} />
     </Canvas>
   );
 }

@@ -20,6 +20,11 @@
     "react-dom": "19.1.0",
     "three": "^0.180.0"
   },
+  "overrides": {
+    "next": {
+      "postcss": "8.5.32"
+    }
+  },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",

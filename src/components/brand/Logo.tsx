@@ -12,10 +12,11 @@ type LogoProps = {
 export function LogoMark({ tone = "gradient", className, title }: Omit<LogoProps, "variant">) {
   return (
     <Image
-      src={tone === "mono" ? "/brand/mark-white.png" : "/brand/mark-dimensional.png"}
+      src={tone === "mono" ? "/brand/mark-white.webp" : "/brand/mark-dimensional.webp"}
       width={256} height={178} alt={title ?? ""}
       aria-hidden={title ? undefined : true}
       className={`object-contain ${className ?? ""}`}
+      priority
     />
   );
 }
@@ -26,7 +27,7 @@ export function Logo({ variant = "full", tone = "gradient", className, title = "
     <span role="img" aria-label={title} className={`inline-flex shrink-0 items-center gap-3 ${className ?? ""}`}>
       <LogoMark tone={tone} className={compactWordmark ? "h-9 w-[52px] shrink-0 sm:h-10 sm:w-[60px]" : "h-10 w-14 shrink-0 sm:h-11 sm:w-16"} />
       <Image
-        src={tone === "mono" ? "/brand/wordmark-white.png" : "/brand/wordmark-brand.png"}
+        src={tone === "mono" ? "/brand/wordmark-white.webp" : "/brand/wordmark-brand.webp"}
         width={140}
         height={78}
         alt=""

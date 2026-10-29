@@ -32,7 +32,7 @@ function mailtoHref(d: Record<string, string>) {
 }
 
 const fieldBase =
-  "w-full rounded-xl border bg-white/[0.03] px-4 py-3.5 text-[0.98rem] text-star placeholder:text-star/30 outline-none transition-[border-color,background-color,box-shadow] duration-300 focus:bg-white/[0.05] focus:shadow-[0_0_0_4px_rgba(146,108,216,0.18)]";
+  "w-full rounded-xl border bg-white/[0.03] px-4 py-3.5 text-[0.98rem] text-star placeholder:text-cosmic outline-none transition-[border-color,background-color,box-shadow] duration-300 focus:bg-white/[0.05] focus:shadow-[0_0_0_4px_rgba(146,108,216,0.18)]";
 
 export function ContactForm() {
   const uid = useId();
@@ -201,7 +201,7 @@ export function ContactForm() {
             aria-invalid={!!errors.projectType}
             aria-describedby={errors.projectType ? id("projectType-err") : undefined}
             className={`${fieldBase} ${border(errors.projectType)} appearance-none bg-[url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'><path d='M1 1.5 6 6.5 11 1.5' stroke='%239CA3AF' stroke-width='1.5'/></svg>")] bg-[length:12px_8px] bg-[position:right_1rem_center] bg-no-repeat pr-10 ${
-              projectType ? "" : "text-star/30"
+              projectType ? "" : "text-cosmic"
             }`}
           >
             <option value="" disabled className="bg-surface text-cosmic">

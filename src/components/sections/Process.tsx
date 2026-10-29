@@ -170,9 +170,7 @@ export function Process() {
                 return (
                   <li
                     key={s.n}
-                    className={`relative pl-10 transition-opacity duration-500 lg:flex lg:min-h-[42vh] lg:flex-col lg:justify-center lg:pl-0 ${
-                      on ? "opacity-100" : "opacity-35"
-                    }`}
+                    className="relative pl-10 lg:flex lg:min-h-[42vh] lg:flex-col lg:justify-center lg:pl-0"
                   >
                     <span
                       aria-hidden
@@ -180,7 +178,7 @@ export function Process() {
                         on ? "border-orion" : "border-white/25"
                       }`}
                     />
-                    <p className="font-mono text-[0.75rem] tracking-[0.2em] text-cosmic">{s.n}</p>
+                    <p className={`font-mono text-[0.75rem] tracking-[0.2em] transition-colors duration-500 ${on ? "text-orion" : "text-cosmic"}`}>{s.n}</p>
                     <h3 className="mt-3 font-display text-[2rem] font-medium tracking-[-0.02em] text-star sm:text-[2.75rem]">
                       {s.title}
                     </h3>

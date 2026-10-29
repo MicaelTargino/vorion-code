@@ -24,6 +24,8 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npm run lint
+      - run: npm audit --omit=dev --audit-level=moderate
       - run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: https://vorioncode.com

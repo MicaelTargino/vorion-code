@@ -75,7 +75,7 @@ export function Footer() {
           )}
         </div>
 
-        <p className="mt-20 font-display text-[clamp(1.6rem,0.6rem+4.2vw,4.5rem)] font-medium leading-none tracking-[-0.03em] text-star/[0.12]">
+        <p className="mt-20 font-display text-[clamp(1.6rem,0.6rem+4.2vw,4.5rem)] font-medium leading-none tracking-[-0.03em] text-star/50">
           {ft.closing}
         </p>
         <div className="mt-10 flex flex-col justify-between gap-3 border-t border-line pt-6 text-[0.82rem] text-cosmic sm:flex-row">

@@ -19,6 +19,13 @@ for original, name, width in [
         image.thumbnail((width, width))
         image.save(dest / name, optimize=True)
 
+# Three pixels per CSS pixel at the largest size used by the header/footer.
+for name, width in [("mark-dimensional", 192), ("mark-white", 192),
+                    ("wordmark-brand", 288), ("wordmark-white", 288)]:
+    with Image.open(dest / f"{name}.png") as image:
+        image.thumbnail((width, width), Image.Resampling.LANCZOS)
+        image.save(dest / f"{name}.webp", quality=88, method=6)
+
 fonts = root / "src" / "app" / "fonts"
 fonts.mkdir(exist_ok=True)
 with ZipFile(source / "Poppins.zip") as archive:

@@ -63,6 +63,7 @@ src/
 - **Qualidade adaptativa.** Telas estreitas, 4 núcleos ou menos e `saveData` usam a versão leve: menos oitavas de ruído, menos partículas, DPR ≤ 1,25 e sem antialias. O `PerformanceMonitor` derruba o DPR se a taxa de quadros cair.
 - **O site funciona sem WebGL.** `SceneFallback` desenha a mesma paisagem em CSS e SVG. Ela aparece imediatamente e fica por baixo do canvas, que só entra com fade depois do primeiro frame. Sem WebGL, a cena estática é a definitiva. A página nunca fica em branco.
 - **WebGL montado no `requestIdleCallback`**, para que a compilação dos shaders não dispute a thread principal com a hidratação.
+- **Shaders preparados com `compileAsync` antes do primeiro render.** A paisagem CSS/SVG continua visível durante a preparação; o navegador pode compilar os programas em paralelo quando oferece suporte.
 - **Entrada do hero em CSS, não em JS**, porque animações de `opacity`/`transform` rodam no compositor. Assim o texto aparece no tempo certo mesmo se a thread principal estiver ocupada com a GPU. O GSAP cuida do que depende de scroll (afastamento do hero, máscaras de títulos, revelação dos projetos e a órbita do processo).
 - **Lenis + GSAP** num único ticker. O Lenis fica desligado em telas de toque e com `prefers-reduced-motion`.
 - **Movimento reduzido:** sem parallax, sem scroll-scrub e sem entrada animada. A cena renderiza estática e o processo aparece completo.
@@ -72,6 +73,12 @@ src/
 ## Deploy (GitHub Pages)
 
 `next build` gera o site estático em `out/` (`output: "export"` no `next.config.ts`). O workflow `.github/workflows/deploy.yml` faz o build e publica no GitHub Pages a cada push na `main`.
+
+Antes do build, o workflow executa lint e auditoria das dependências de produção;
+alertas moderados ou mais graves interrompem a publicação. O `overrides` no
+`package.json` fixa o PostCSS usado pelo Next em 8.5.32 para corrigir os alertas
+da versão 8.4.31. Ao atualizar o Next, reavalie esse override. Versione também
+os quatro WebP em `public/brand`, pois o workflow usa esses arquivos já preparados.
 
 - Domínio: `public/CNAME` (`vorioncode.com`). O DNS fica na Hostinger:
   - `A` em `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
@@ -94,5 +101,6 @@ cópias reduzidas com transparência; os originais foram preservados.
 - Poppins local, pesos 400, 500, 600 e 700, com licença em `src/app/fonts/OFL.txt`.
 - Cores e famílias tipográficas: `src/app/globals.css`.
 - Componente da marca: `src/components/brand/Logo.tsx`.
+- Cabeçalho e rodapé usam cópias WebP da marca, dimensionadas para até 3× a largura exibida; os PNGs continuam disponíveis para preparar os demais materiais.
 - `prepare-brand.py` prepara novamente os arquivos web a partir dos originais
   (requer Python com Pillow).
